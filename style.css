@@ -12,15 +12,17 @@ body {
 
 .logo {
   display: block;
-  margin: 12px auto 0;
-  width: 150px;
+  margin: 0 auto;
+  width: 250px;
+  border-radius: 25px;
+  background: #8a51fc;
 }
 
 main {
   border-radius: 20px;
   background: #f4f4f4;
   width: 375px;
-  margin: 5px auto;
+  margin: 0 auto;
   padding: 44px 24px 23px;
   display: flex;
 
