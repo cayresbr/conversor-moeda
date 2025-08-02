@@ -20,24 +20,20 @@
         Converter <strong>de:</strong>
         <select>
           <option>R$ Real Brasileiro</option>
-          <option>US$ Dolar</option>
-          <option>€ Euro</option>
-          <option>£ Libra Esterlina</option>
         </select>
       </label>
 
       <label>
         Converter <strong>para:</strong>
-        <select>
-          <option>R$ Real Brasileiro</option>
-          <option>US$ Dolar</option>
-          <option>€ Euro</option>
-          <option>£ Libra Esterlina</option>
+        <select class="currency-type">
+          <option value="dolar">US$ Dolar</option>
+          <option value="euro">€ Euro</option>
+          <option value="libra">£ Libra Esterlina</option>
         </select>
       </label>
 
       <label><strong>Valor</strong></label>
-      <input class="input-currency" type="number" placeholder="R$ 10.000,00">
+      <input class="input-currency" type="number" placeholder="R$ 10.000,00" />
 
       <button class="convert-button">Converter</button>
 
