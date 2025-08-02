@@ -25,14 +25,14 @@ function convertValues() {
   if (currencyType.value == "euro") {
     currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
       style: "currency",
-      currency: "EUR"
-    }).format(inputCurrencyValue / euroToday)
+      currency: "EUR",
+    }).format(inputCurrencyValue / euroToday);
   }
   if (currencyType.value == "libra") {
     currencyValueConverted.innerHTML = new Intl.NumberFormat("en-GB", {
       style: "currency",
-      currency: "GBP"
-    }).format(inputCurrencyValue / libraToday)
+      currency: "GBP",
+    }).format(inputCurrencyValue / libraToday);
   }
 
   currencyValueToConvert.innerHTML = new Intl.NumberFormat("pt-BR", {
@@ -41,4 +41,27 @@ function convertValues() {
   }).format(inputCurrencyValue);
 }
 
+function changeCurrency() {
+  const currencyName = document.getElementById("currency-name");
+  const currencyImg = document.querySelector(".currency-img");
+
+  if (currencyType.value == "dolar") {
+    currencyName.innerHTML = "Dolar Americano";
+    currencyImg.src = "./assets/us-logo.png"
+  }
+
+  if (currencyType.value == "euro") {
+    currencyName.innerHTML = "Euro";
+    currencyImg.src = "./assets/euro-logo.png"
+  }
+
+  if (currencyType.value == "libra") {
+    currencyName.innerHTML = "Libra Esterlina";
+    currencyImg.src = "./assets/libra-logo.png"
+  }
+
+  convertValues()
+}
+
+currencyType.addEventListener("change", changeCurrency);
 convertButton.addEventListener("click", convertValues);
