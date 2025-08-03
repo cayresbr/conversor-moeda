@@ -18,15 +18,19 @@
     <main>
       <label>
         Converter <strong>de:</strong>
-        <select>
-          <option>R$ Real Brasileiro</option>
+        <select class="currency-from">
+          <option value="real">R$ Real Brasileiro</option>
+          <option value="dolar">US$ Dólar Americano</option>
+          <option value="euro">€ Euro</option>
+          <option value="libra">£ Libra Esterlina</option>
         </select>
       </label>
 
       <label>
         Converter <strong>para:</strong>
         <select class="currency-type">
-          <option value="dolar">US$ Dolar</option>
+          <option value="dolar">US$ Dólar Americano</option>
+          <option value="real">R$ Real Brasileiro</option>
           <option value="euro">€ Euro</option>
           <option value="libra">£ Libra Esterlina</option>
         </select>
@@ -39,15 +43,21 @@
 
       <section>
         <div class="currency-box">
-          <img src="assets/brasil-logo.png" alt="brasil-logo" />
-          <p class="currency">Real</p>
+          <img
+            class="currency-img-from"
+            src="assets/brasil-logo.png"
+            alt="brasil-logo"
+          />
+          <p class="currency" id="currency-name-from">Real</p>
           <p class="currencyValueToConvert">R$ 10.000,00</p>
         </div>
 
         <img src="assets/arrow-down.png" alt="arrow-down" />
 
         <div class="currency-box">
-          <img class="currency-img" src="assets/us-logo.png" alt="us-logo" />
+          <img
+          class="currency-img-to"
+          src="assets/us-logo.png" alt="us-logo" />
           <p class="currency" id="currency-name">Dolar Americano</p>
           <p class="currencyValueConverted">US$ 2.000,00</p>
         </div>
