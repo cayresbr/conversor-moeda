@@ -9,8 +9,8 @@ Um simples e funcional conversor de moedas feito com **HTML**, **CSS** e **JavaS
 - Interface simples e responsiva.
 
 ## 📸 Demonstração
-*(Adicione um print do seu projeto aqui)*  
-![Demonstração do Conversor](assets/demo.png)
+  
+![Demonstração do Conversor](https://github.com/cayresbr/conversor-moeda/blob/main/assets/demo.jpg?raw=true)
 
 ## 🛠 Tecnologias Utilizadas
 - **HTML5** – Estrutura da página.
