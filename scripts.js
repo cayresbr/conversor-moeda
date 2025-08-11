@@ -2,133 +2,82 @@ const convertButton = document.querySelector(".convert-button");
 const currencyType = document.querySelector(".currency-type");
 const currencyFrom = document.querySelector(".currency-from");
 
-function convertValues() {
-  const inputCurrencyValue = document.querySelector(".input-currency").value;
+const currencyInfo = {
+  BRL: { name: "Real Brasileiro", img: "./assets/brasil-logo.png", locale: "pt-BR" },
+  USD: { name: "Dólar Americano", img: "./assets/us-logo.png", locale: "en-US" },
+  EUR: { name: "Euro", img: "./assets/euro-logo.png", locale: "de-DE" },
+  GBP: { name: "Libra Esterlina", img: "./assets/libra-logo.png", locale: "en-GB" }
+};
 
-  const currencyValueToConvert = document.querySelector(
-    ".currencyValueToConvert"
-  );
+// Pega taxas da API
+async function getRates() {
+  const response = await fetch("https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,GBP-BRL");
+  const data = await response.json();
 
-  const currencyValueConverted = document.querySelector(
-    ".currencyValueConverted"
-  );
+  return {
+    USD: parseFloat(data.USDBRL.high),
+    EUR: parseFloat(data.EURBRL.high),
+    GBP: parseFloat(data.GBPBRL.high),
+    BRL: 1
+  };
+}
 
-  const dolarToday = 5.5;
-  const euroToday = 7;
-  const libraToday = 8;
+// Converte valores
+async function convertValues() {
+  const inputCurrencyValue = parseFloat(document.querySelector(".input-currency").value) || 0;
 
+  const currencyValueToConvert = document.querySelector(".currencyValueToConvert");
+  const currencyValueConverted = document.querySelector(".currencyValueConverted");
 
-//Primeiro bloco de IFs para valores convertidos
+  const rates = await getRates();
 
-  if (currencyType.value == "real") {
-    currencyValueConverted.innerHTML = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(inputCurrencyValue);
-  }
+  const from = currencyFrom.value;
+  const to = currencyType.value;
 
-  if (currencyType.value == "dolar") {
-    currencyValueConverted.innerHTML = new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(inputCurrencyValue / dolarToday);
-  }
-  if (currencyType.value == "euro") {
-    currencyValueConverted.innerHTML = new Intl.NumberFormat("de-DE", {
-      style: "currency",
-      currency: "EUR",
-    }).format(inputCurrencyValue / euroToday);
-  }
-  if (currencyType.value == "libra") {
-    currencyValueConverted.innerHTML = new Intl.NumberFormat("en-GB", {
-      style: "currency",
-      currency: "GBP",
-    }).format(inputCurrencyValue / libraToday);
-  }
+  // Converte para BRL primeiro, depois para moeda final
+  const valueInBRL = inputCurrencyValue * rates[from];
+  const finalValue = valueInBRL / rates[to];
 
-//Segundo bloco de IFs para valores a serem convertidos
-
-
-  if (currencyFrom.value == "real") {
-    currencyValueToConvert.innerHTML = new Intl.NumberFormat("pt-BR", {
+  // Atualiza o valor de origem
+  currencyValueToConvert.innerHTML = new Intl.NumberFormat(currencyInfo[from].locale, {
     style: "currency",
-    currency: "BRL",
+    currency: from
   }).format(inputCurrencyValue);
-}
 
-  if (currencyFrom.value == "dolar") {
-    currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-US", {
+  // Atualiza o valor convertido
+  currencyValueConverted.innerHTML = new Intl.NumberFormat(currencyInfo[to].locale, {
     style: "currency",
-    currency: "USD",
-  }).format(inputCurrencyValue);
+    currency: to
+  }).format(finalValue);
 }
 
-  if (currencyFrom.value == "euro") {
-    currencyValueToConvert.innerHTML = new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: "EUR",
-  }).format(inputCurrencyValue);
-}
-
-  if (currencyFrom.value == "libra") {
-    currencyValueToConvert.innerHTML = new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "GBP",
-  }).format(inputCurrencyValue);
-}
-
-}
-
+// Atualiza informações da moeda de origem
 function changeCurrencyFrom() {
   const currencyNameFrom = document.getElementById("currency-name-from");
   const currencyImg = document.querySelector(".currency-img-from");
 
-  if (currencyFrom.value == "real") {
-    currencyNameFrom.innerHTML = "Real Brasileiro";
-    currencyImg.src = "./assets/brasil-logo.png";
-  }
+  const from = currencyFrom.value;
+  currencyNameFrom.innerHTML = currencyInfo[from].name;
+  currencyImg.src = currencyInfo[from].img;
 
-  if (currencyFrom.value == "dolar") {
-    currencyNameFrom.innerHTML = "Dólar Americano";
-    currencyImg.src = "./assets/us-logo.png";
-  }
-
-  if (currencyFrom.value == "euro") {
-    currencyNameFrom.innerHTML = "Euro";
-    currencyImg.src = "./assets/euro-logo.png";
-  }
-
-  if (currencyFrom.value == "libra") {
-    currencyNameFrom.innerHTML = "Libra Esterlina";
-    currencyImg.src = "./assets/libra-logo.png";
-  }
+  // Atualiza valor mostrado mesmo sem clicar
+  const inputCurrencyValue = parseFloat(document.querySelector(".input-currency").value) || 0;
+  document.querySelector(".currencyValueToConvert").innerHTML = new Intl.NumberFormat(currencyInfo[from].locale, {
+    style: "currency",
+    currency: from
+  }).format(inputCurrencyValue);
 
   convertValues();
 }
 
+// Atualiza informações da moeda de destino
 function changeCurrency() {
   const currencyName = document.getElementById("currency-name");
   const currencyImgTo = document.querySelector(".currency-img-to");
 
-  if (currencyType.value == "real") {
-    currencyName.innerHTML = "Real Brasileiro";
-    currencyImgTo.src = "./assets/brasil-logo.png";
-  }
-
-  if (currencyType.value == "dolar") {
-    currencyName.innerHTML = "Dólar Americano";
-    currencyImgTo.src = "./assets/us-logo.png";
-  }
-
-  if (currencyType.value == "euro") {
-    currencyName.innerHTML = "Euro";
-    currencyImgTo.src = "./assets/euro-logo.png";
-  }
-
-  if (currencyType.value == "libra") {
-    currencyName.innerHTML = "Libra Esterlina";
-    currencyImgTo.src = "./assets/libra-logo.png";
-  }
+  const to = currencyType.value;
+  currencyName.innerHTML = currencyInfo[to].name;
+  currencyImgTo.src = currencyInfo[to].img;
 
   convertValues();
 }
