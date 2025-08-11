@@ -8,7 +8,7 @@ Um simples e funcional conversor de moedas feito com **HTML**, **CSS** e **JavaS
 - Cotações reais atualizadas automaticamente via API.
 - Interface simples e responsiva.
 
-## 📸 Demonstração [Acesse o site:](https://cayresbr.github.io/conversor-moeda/)
+## 📸 Demonstração, Acesse o site [aqui!](https://cayresbr.github.io/conversor-moeda/)
   
 ![Demonstração do Conversor](https://github.com/cayresbr/conversor-moeda/blob/main/assets/demo.jpg?raw=true)
 
